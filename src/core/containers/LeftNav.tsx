@@ -78,11 +78,11 @@ const sideBarList = [
 ];
 
 export const LeftNav = () => {
-  const [activeTab, setActiveTab] = useState(-1);
+  const [activeTab, setActiveTab] = useState(0);
 
   const clickHandler = useCallback(
     (event: any) => {
-      if (activeTab === event.currentTarget.dataset.id) setActiveTab(-1);
+      if (activeTab === event.currentTarget.dataset.id) setActiveTab(0);
       else setActiveTab(event.currentTarget.dataset.id);
     },
     [activeTab, setActiveTab]

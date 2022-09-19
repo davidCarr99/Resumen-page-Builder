@@ -8,9 +8,10 @@ const ResumeContainer: any = styled.div`
   width: 210mm;
   height: 296mm;
   margin: auto;
+  margin-left: 29%;
+  margin-top: 1%;
   background-color: white;
   border: 1px solid ${(props) => props.theme.fontColor};
-  margin: 6mm;
   transform-origin: top;
   transform: ${({ zoom }: any) => `scale(${1 + zoom})`};
   margin-bottom: ${({ zoom }: any) => {
