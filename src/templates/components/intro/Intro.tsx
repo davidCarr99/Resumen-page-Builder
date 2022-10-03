@@ -12,8 +12,8 @@ const Role = styled.h3`
 
 const Contact = ({ icon, value }: any) => (
   <FlexVC jc="flex-end" cGap="8px">
-    {icon}
     <span>{value}</span>
+    {icon}
   </FlexVC>
 );
 

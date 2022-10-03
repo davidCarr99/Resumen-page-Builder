@@ -50,7 +50,7 @@ export const IntroEditor = () => {
 
   return (
     <Container>
-      <Heading>Intro</Heading>
+      <Heading>Introduccion</Heading>
       <IntroEdit state={introState} METADATA={INTRO_METADATA} update={update} />
       <Divider />
     </Container>
@@ -63,7 +63,7 @@ export const SocialEditor = () => {
 
   return (
     <Container>
-      <Heading>Social</Heading>
+      <Heading>Social Media</Heading>
       <SocialEdit state={profiles} METADATA={SOCIAL_METADATA} update={updateProfiles} />
     </Container>
   );
@@ -97,7 +97,7 @@ export const EduEditor = () => {
 
   return (
     <Container>
-      <Heading>Education</Heading>
+      <Heading>Educacion</Heading>
       <TimelineEdit
         METADATA={EDU_METADATA}
         itemList={education}

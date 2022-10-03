@@ -1,13 +1,8 @@
 export const INTRO_METADATA = [
   {
-    label: 'Name',
+    label: 'Nombre Editado',
     type: 'Input',
     value: 'name',
-  },
-  {
-    label: 'Image',
-    type: 'Input',
-    value: 'image',
   },
   {
     label: 'Role',
@@ -15,7 +10,7 @@ export const INTRO_METADATA = [
     value: 'label',
   },
   {
-    label: 'Email',
+    label: 'Correo',
     type: 'Input',
     value: 'email',
   },
@@ -30,7 +25,7 @@ export const INTRO_METADATA = [
     value: 'location.city',
   },
   {
-    label: 'Relevant Experience',
+    label: 'Experience Relevante',
     type: 'Input',
     value: 'relExp',
   },
@@ -106,26 +101,6 @@ export const SOCIAL_METADATA = [
     label: 'Wordpress',
     type: 'Input',
     value: 'wordpress',
-  },
-  {
-    label: 'Hashnode',
-    type: 'Input',
-    value: 'hashnode',
-  },
-  {
-    label: 'Squarespace',
-    type: 'Input',
-    value: 'squarespace',
-  },
-  {
-    label: 'Behance',
-    type: 'Input',
-    value: 'behance',
-  },
-  {
-    label: 'Dribbble',
-    type: 'Input',
-    value: 'dribbble',
   },
 ];
 
