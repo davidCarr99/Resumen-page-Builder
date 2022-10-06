@@ -4,13 +4,13 @@ import { Input as AntInput } from 'antd';
 import { MarkDownField } from 'src/core/widgets/MarkdownField';
 
 const Wrapper = styled.div`
-  margin: 8px 0;
+  margin: 2px 0;
 `;
 
 const Topic = styled.p`
   font-size: 0.875rem;
   font-weight: 600;
-  color: #fff;
+  color: blue;
   margin-bottom: 7px;
 `;
 
