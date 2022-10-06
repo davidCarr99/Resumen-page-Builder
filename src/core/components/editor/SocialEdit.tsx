@@ -19,7 +19,7 @@ const Input = styled(AntInput)`
   height: 2.625rem;
   padding: 0.625rem;
   max-width: 100%;
-  background: #424242;
+  background: #A9DFBF;
   color: #fff;
   border-radius: 2px;
   margin-bottom: 5px;

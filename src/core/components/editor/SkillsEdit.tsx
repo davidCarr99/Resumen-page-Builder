@@ -17,7 +17,7 @@ const Handle = styled.span`
   justify-content: center;
   width: 50px;
   font-size: 1.5rem;
-  background-color: white;
+  background-color: red;
 `;
 
 const Input = styled(AntInput)`
