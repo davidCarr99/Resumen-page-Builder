@@ -41,7 +41,7 @@ const sideBarList = [
   },
   {
     key: 2,
-    title: 'Skills',
+    title: 'Habilidades',
     icon: 'tool',
     component: <SkillsEditor />,
   },
@@ -71,6 +71,12 @@ const sideBarList = [
   },
   {
     key: 7,
+    title: 'References',
+    icon: 'references',
+    component: <ActivitiesEditor />,
+  },
+  {
+    key: 8,
     title: 'Label',
     icon: 'label',
     component: <LabelsEditor />,

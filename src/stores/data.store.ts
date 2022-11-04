@@ -5,10 +5,10 @@ import produce from 'immer';
 import userData from 'src/stores/data.json';
 
 const labels = [
-  'Experience',
+  'Experiencia',
   'Key Projects / Involvements',
   'Certificates and Awards',
-  'About me',
+  'Acerca de Mi',
   'Career Objective',
   'Technical Expertise',
   'Skills / Exposure',
@@ -341,6 +341,61 @@ export const useLabels = create(
     }),
     {
       name: 'sprb-labels',
+    }
+  )
+);
+
+export const useReference = create(
+  persist(
+    (set) => ({
+      references: userData.reference,
+
+      reset: (data = userData.reference) => {
+        set({ references: data });
+      },
+
+      setField: (event: InputEvent) =>
+        set((state: any) => {
+          const field = event.target?.['dataset']?.label;
+
+          if (field === undefined) return;
+          state[field] = event.target?.['value'];
+        }),
+
+      add: () =>
+        set((state: any) => ({
+          references: [
+            ...state.references,
+            {
+              ref: "Referencia",
+              name: '',
+              phone: '',
+              info: '',
+            },
+          ],
+        })),
+
+      update: (index, field, value) =>
+        set((state: any) => {
+          const newReferences = [...state.references];
+          newReferences[index][field] = value;
+          return {
+            references: newReferences,
+          };
+        }),
+
+      purge: (index: number) =>
+        set((state: any) => ({
+          references: state.references.filter((_, ind) => ind !== index),
+        })),
+
+      changeOrder: ({ oldIndex, newIndex }) =>
+        set((state: any) => ({
+          companies: arrayMoveImmutable(state.references, oldIndex, newIndex),
+        })),
+    }),
+    {
+      name: 'sprb-reference',
     }
   )
 );

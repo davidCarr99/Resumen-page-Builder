@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { Input as AntInput } from 'antd';
 
 const Wrapper = styled.div`
-  margin: 8px 0;
+  margin: 2px 0;
 `;
 
 const Input = styled(AntInput)`
-  border: 1px solid #222;
+  border: 3px solid #fff;
   height: 2.625rem;
   padding: 0.625rem;
   max-width: 100%;

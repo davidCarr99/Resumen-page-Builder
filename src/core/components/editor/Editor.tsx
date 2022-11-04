@@ -9,6 +9,7 @@ import {
   useIntro,
   useVolunteer,
   useAwards,
+  useReference,
 } from 'src/stores/data.store';
 import {
   INTRO_METADATA,
@@ -17,6 +18,7 @@ import {
   SOCIAL_METADATA,
   VOLUNTEERING_METADATA,
   AWARDS_METADATA,
+  REFERENCES_METADATA,
 } from 'src/core/meta-data/input_metadata';
 import { SkillsEdit } from './SkillsEdit';
 import { TimelineEdit } from './TimelineEdit';
@@ -26,8 +28,8 @@ import { IntroEdit } from './IntroEdit';
 import { SocialEdit } from './SocialEdit';
 
 const Divider = styled.div`
-  height: 2px;
-  background: white;
+  height: 10px;
+  background: red;
   margin: 20px 0;
 `;
 
@@ -50,7 +52,7 @@ export const IntroEditor = () => {
 
   return (
     <Container>
-      <Heading>Introduccion</Heading>
+      <Heading>Acerca de Mi</Heading>
       <IntroEdit state={introState} METADATA={INTRO_METADATA} update={update} />
       <Divider />
     </Container>
@@ -63,7 +65,7 @@ export const SocialEditor = () => {
 
   return (
     <Container>
-      <Heading>Social Media</Heading>
+      <Heading>Redes Sociales</Heading>
       <SocialEdit state={profiles} METADATA={SOCIAL_METADATA} update={updateProfiles} />
     </Container>
   );
@@ -117,7 +119,7 @@ export const ExerienceEditor = () => {
 
   return (
     <Container>
-      <Heading>Experience</Heading>
+      <Heading>Experiencia</Heading>
       <TimelineEdit
         METADATA={EXP_METADATA}
         itemList={companies}
@@ -162,6 +164,26 @@ const AwardsEditor = () => {
         METADATA={AWARDS_METADATA}
         itemList={awards}
         identifier="title"
+        operations={{ update, add, purge, changeOrder }}
+      />
+    </Container>
+  );
+};
+
+export const ReferenceEditor = () => {
+  const references = useReference((state: any) => state.references);
+  const [add, update, purge, changeOrder] = useReference(
+    (state: any) => [state.add, state.update, state.purge, state.changeOrder],
+    shallow
+  );
+
+  return (
+    <Container>
+      <Heading>Referencia</Heading>
+      <TimelineEdit
+        METADATA={REFERENCES_METADATA}
+        itemList={references}
+        identifier="name"
         operations={{ update, add, purge, changeOrder }}
       />
     </Container>

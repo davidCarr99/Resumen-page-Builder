@@ -1,6 +1,6 @@
 export const INTRO_METADATA = [
   {
-    label: 'Nombre Editado',
+    label: 'Nombres',
     type: 'Input',
     value: 'name',
   },
@@ -247,4 +247,27 @@ export const AWARDS_METADATA = [
     type: 'Input',
     value: 'summary',
   },
+];
+
+export const REFERENCES_METADATA = [
+  {
+    label: 'Referencia',
+    type: 'Input',
+    value: 'referencia',
+  },
+  {
+    label: 'Nombre',
+    type: 'Input',
+    value: 'name'
+  },
+  {
+    label: 'Telefono',
+    type: 'Input',
+    value: 'phone',
+  },
+  {
+    label: 'Información',
+    type: 'MarkDownField',
+    value: 'informacion',
+  }
 ];
