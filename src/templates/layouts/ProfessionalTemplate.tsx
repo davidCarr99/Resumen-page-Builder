@@ -13,6 +13,8 @@ import { RatedBars } from 'src/templates/components/skills/RatedBars';
 import { UnratedTabs } from 'src/templates/components/skills/UnratedTabs';
 import { Exp } from 'src/templates/components/exp/Exp';
 import { EduSection } from 'src/templates/components/education/EduSection';
+import { Ref } from '../components/references/reference';
+import { useReference } from '../../stores/data.store';
 import {
   useIntro,
   useWork,
@@ -37,13 +39,13 @@ const ResumeContainer = styled(Flex)`
 const LeftSection = styled(FlexCol)`
   flex-basis: 66%;
   row-gap: 20px;
-  height: 100%;
+  height: 90%;
 `;
 
 const RightSection = styled(FlexCol)`
-  flex-basis: 34%;
+  flex-basis: 40%;
   row-gap: 20px;
-  height: 100%;
+  height: 50%;
   justify-content: space-between;
 `;
 
@@ -58,12 +60,14 @@ const labelsIcon = [
   'branch',
   'tool',
   'education',
+  'references',
 ];
 
 export default function ProfessionalTemplate() {
   const intro = useIntro((state: any) => state.intro);
   const education = useEducation((state: any) => state.education);
   const experience = useWork((state: any) => state);
+  const reference = useReference((state: any) => state);
   const [involvements, achievements] = useActivities(
     (state: any) => [state.involvements, state.achievements],
     shallow
@@ -99,6 +103,11 @@ export default function ProfessionalTemplate() {
       icon: labelsIcon[2],
       component: <Description description={achievements} />,
     },
+    {
+      title: labels[12],
+      icon: labelsIcon[10],
+      component: <Ref references={reference.references} />
+    }
   ];
   const rightSections = [
     {
@@ -131,7 +140,7 @@ export default function ProfessionalTemplate() {
       title: labels[9],
       icon: labelsIcon[9],
       component: <EduSection education={education} />,
-    },
+    }
   ];
 
   return (

@@ -179,11 +179,11 @@ export const ReferenceEditor = () => {
 
   return (
     <Container>
-      <Heading>Referencia</Heading>
+      <Heading>Referencias</Heading>
       <TimelineEdit
         METADATA={REFERENCES_METADATA}
         itemList={references}
-        identifier="name"
+        identifier="ref"
         operations={{ update, add, purge, changeOrder }}
       />
     </Container>

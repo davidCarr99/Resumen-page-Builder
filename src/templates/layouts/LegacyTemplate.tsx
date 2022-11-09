@@ -12,6 +12,7 @@ import { EduSection } from 'src/templates/components/education/EduSection';
 import { LineSeparator } from 'src/templates/components/separator/LineSeparator';
 import { LegacyHeader } from 'src/templates/components/section-layout/LegacyHeader';
 import { SocialBar } from 'src/templates/components/social/SocialBar';
+import { Ref } from '../components/references/reference';
 import {
   useIntro,
   useWork,
@@ -19,6 +20,7 @@ import {
   useActivities,
   useEducation,
   useLabels,
+  useReference,
 } from 'src/stores/data.store';
 
 const GridContainer = styled.div`
@@ -56,6 +58,7 @@ export default function LegacyTemplate() {
   const intro = useIntro((state: any) => state.intro);
   const education = useEducation((state: any) => state.education);
   const experience = useWork((state: any) => state);
+  const reference = useReference((state: any) => state);
   const [involvements, achievements] = useActivities(
     (state: any) => [state.involvements, state.achievements],
     shallow
@@ -117,6 +120,8 @@ export default function LegacyTemplate() {
         <LineSeparator />
         <LegacyHeader Icon={getIcon('education')} title={labels[9]} />
         <EduSection education={education} />
+        <LegacyHeader Icon={getIcon('references')} title={labels[12]} />
+        <Ref references={reference.references} />
       </GridColumn>
     </GridContainer>
   );

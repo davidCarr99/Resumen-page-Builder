@@ -6,6 +6,7 @@ import {
   useAwards,
   useEducation,
   useIntro,
+  useReference,
   useSkills,
   useVolunteer,
   useWork,
@@ -40,6 +41,7 @@ export function SaveSettings() {
   const education = useEducation((state: any) => state.education);
   const activities = useActivities((state: any) => state);
   const volunteer = useVolunteer((state: any) => state.volunteer);
+  const references = useReference((state: any) => state.reference);
   const awards = useAwards((state: any) => state.awards);
 
   function save() {
@@ -47,7 +49,7 @@ export function SaveSettings() {
     const exportType = exportFromJSON.types.json;
 
     exportFromJSON({
-      data: { basics, skills, work, education, activities, volunteer, awards },
+      data: { basics, skills, work, education, activities, volunteer, awards, references },
       fileName,
       exportType,
     });

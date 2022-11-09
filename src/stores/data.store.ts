@@ -17,6 +17,7 @@ const labels = [
   'Education',
   'Relevant Experience',
   'Total Experience',
+  'Referencias'
 ];
 
 export const useIntro = create(
@@ -139,7 +140,7 @@ export const useWork = create(
               from: '',
               to: '',
               years: '',
-              description: '* Point 1\n* Point 2\n* Point 3',
+              description: '* Point 1\n* Point 2',
             },
           ],
         })),
@@ -148,6 +149,7 @@ export const useWork = create(
         set((state: any) => {
           const newCompnaies = [...state.companies];
           newCompnaies[index][field] = value;
+          
           return {
             companies: newCompnaies,
           };
@@ -367,7 +369,7 @@ export const useReference = create(
           references: [
             ...state.references,
             {
-              ref: "Referencia",
+              ref: 'Referencia',
               name: '',
               phone: '',
               info: '',
@@ -379,6 +381,7 @@ export const useReference = create(
         set((state: any) => {
           const newReferences = [...state.references];
           newReferences[index][field] = value;
+          console.log(state.references);
           return {
             references: newReferences,
           };
@@ -391,7 +394,7 @@ export const useReference = create(
 
       changeOrder: ({ oldIndex, newIndex }) =>
         set((state: any) => ({
-          companies: arrayMoveImmutable(state.references, oldIndex, newIndex),
+          references: arrayMoveImmutable(state.references, oldIndex, newIndex),
         })),
     }),
     {

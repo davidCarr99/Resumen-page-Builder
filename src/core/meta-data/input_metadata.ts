@@ -253,7 +253,7 @@ export const REFERENCES_METADATA = [
   {
     label: 'Referencia',
     type: 'Input',
-    value: 'referencia',
+    value: 'ref',
   },
   {
     label: 'Nombre',
@@ -268,6 +268,6 @@ export const REFERENCES_METADATA = [
   {
     label: 'Información',
     type: 'MarkDownField',
-    value: 'informacion',
+    value: 'info',
   }
 ];

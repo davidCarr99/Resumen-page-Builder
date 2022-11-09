@@ -10,6 +10,7 @@ import {
   ForteEditor,
   LabelsEditor,
   ActivitiesEditor,
+  ReferenceEditor,
 } from 'src/core/components/editor/Editor';
 import { SideMenu } from 'src/core/widgets/SideMenu';
 
@@ -73,7 +74,7 @@ const sideBarList = [
     key: 7,
     title: 'References',
     icon: 'references',
-    component: <ActivitiesEditor />,
+    component: <ReferenceEditor />,
   },
   {
     key: 8,
