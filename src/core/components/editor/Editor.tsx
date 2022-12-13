@@ -50,6 +50,7 @@ export const IntroEditor = () => {
   const introState = useIntro((state: any) => state.intro);
   const update = useIntro((state: any) => state.update);
 
+  console.log(introState);
   return (
     <Container>
       <Heading>Acerca de Mi</Heading>

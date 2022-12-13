@@ -3,6 +3,7 @@ import { arrayMoveImmutable } from 'array-move';
 import { persist } from 'zustand/middleware';
 import produce from 'immer';
 import userData from 'src/stores/data.json';
+import axios from 'axios';
 
 const labels = [
   'Experiencia',
@@ -17,13 +18,33 @@ const labels = [
   'Education',
   'Relevant Experience',
   'Total Experience',
-  'Referencias'
+  'Referencias',
 ];
+
+const fetch = () => {
+  return new Promise((resolve, reject) => {
+    axios
+      .get('http://cms.test/showresume')
+      .then((response) => {
+        localStorage.setItem('sprb-intro-name', response.data.name);
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
 
 export const useIntro = create(
   persist(
     (set) => ({
       intro: userData.basics,
+
+      intro2: fetch()
+        .then((res: any) => set({ intro: res.data }))
+        .catch((error) => {
+          console.log('ERROR:', error);
+        }),
 
       reset: (data = userData.basics) => {
         set({ intro: data });
@@ -149,7 +170,7 @@ export const useWork = create(
         set((state: any) => {
           const newCompnaies = [...state.companies];
           newCompnaies[index][field] = value;
-          
+
           return {
             companies: newCompnaies,
           };

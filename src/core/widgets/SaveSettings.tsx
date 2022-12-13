@@ -12,6 +12,7 @@ import {
   useWork,
 } from 'src/stores/data.store';
 import { getIcon } from 'src/styles/icons';
+import axios from 'axios';
 
 const IconWrapper = styled.div`
   outline-color: transparent;
@@ -45,14 +46,27 @@ export function SaveSettings() {
   const awards = useAwards((state: any) => state.awards);
 
   function save() {
-    const fileName = basics.name + '_' + new Date().toLocaleString();
-    const exportType = exportFromJSON.types.json;
+    const jsonInfo = {
+      state: {
+        intro: {
+          name: basics.name,
+          label: basics.label,
+        },
+      },
+    };
+    axios
+      .post('http://cms.test/saveresume', { json: 'json', value: jsonInfo })
+      .then(function (res) {
+        console.log(res);
+      });
+    // const fileName = basics.name + '_' + new Date().toLocaleString();
+    // const exportType = exportFromJSON.types.json;
 
-    exportFromJSON({
-      data: { basics, skills, work, education, activities, volunteer, awards, references },
-      fileName,
-      exportType,
-    });
+    // exportFromJSON({
+    //   data: { basics, skills, work, education, activities, volunteer, awards, references },
+    //   fileName,
+    //   exportType,
+    // });
   }
 
   return (
