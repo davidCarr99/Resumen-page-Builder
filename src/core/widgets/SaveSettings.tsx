@@ -57,9 +57,10 @@ export function SaveSettings() {
       sprb_volunteer: localStorage.getItem('sprb-volunteer'),
       sprb_labels: localStorage.getItem('sprb-labels'),
     };
-    axios.post('http://cms.test/saveresume', data).then(function (res) {
+    axios.post('http://cms.test/saveresume', JSON.stringify(data)).then(function (res) {
       console.log(res);
     });
+    console.log(data);
     // const fileName = basics.name + '_' + new Date().toLocaleString();
     // const exportType = exportFromJSON.types.json;
 

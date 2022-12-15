@@ -64,7 +64,8 @@ const fetch = () => {
         // const sprbIntro = JSON.parse(localStorage.getItem('sprb-intro')!);
 
         console.log(localStorage.getItem('sprb-intro'));
-        // console.log(response)
+        console.log('#######################');
+        console.log(response);
         const sprb = {
           basics: {
             name: sprbIntro.state.intro.name,
@@ -174,6 +175,7 @@ const fetch = () => {
           volunteer: [],
           awards: [],
         };
+        console.log(sprb);
         resolve(sprb);
       })
       .catch((error) => {
