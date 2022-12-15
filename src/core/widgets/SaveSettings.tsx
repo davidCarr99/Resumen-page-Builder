@@ -12,7 +12,6 @@ import {
   useWork,
 } from 'src/stores/data.store';
 import { getIcon } from 'src/styles/icons';
-import axios from 'axios';
 
 const IconWrapper = styled.div`
   outline-color: transparent;
@@ -57,7 +56,10 @@ export function SaveSettings() {
       sprb_volunteer: localStorage.getItem('sprb-volunteer'),
       sprb_labels: localStorage.getItem('sprb-labels'),
     };
-    axios.post('http://cms.test/saveresume', JSON.stringify(data)).then(function (res) {
+    fetch('http://cms.test/saveresume', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    }).then(function (res) {
       console.log(res);
     });
     console.log(data);

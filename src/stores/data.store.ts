@@ -3,7 +3,6 @@ import { arrayMoveImmutable } from 'array-move';
 import { persist } from 'zustand/middleware';
 import produce from 'immer';
 import userData from 'src/stores/data.json';
-import axios from 'axios';
 
 const labels = [
   'Experiencia',
@@ -21,11 +20,11 @@ const labels = [
   'Referencias',
 ];
 
-const fetch = () => {
+const fetch3 = () => {
   return new Promise((resolve, reject) => {
-    axios
-      .get('http://cms.test/showresume')
-      .then((response) => {
+    fetch('http://cms.test/showresume')
+      .then((response) => response.json())
+      .then((data) => {
         if ('caches' in window) {
           caches.keys().then((names) => {
             // Delete all the cache files
@@ -35,37 +34,37 @@ const fetch = () => {
           });
         }
 
-        const sprbIntro = JSON.parse(response.data['sprb-intro']);
+        const sprbIntro = JSON.parse(data['sprb-intro']);
         localStorage.setItem('sprb-intro', JSON.stringify(sprbIntro));
 
-        const sprbSkills = JSON.parse(response.data['sprb-skills']);
+        const sprbSkills = JSON.parse(data['sprb-skills']);
         localStorage.setItem('sprb-skills', JSON.stringify(sprbSkills));
 
-        const sprbWork = JSON.parse(response.data['sprb-work']);
+        const sprbWork = JSON.parse(data['sprb-work']);
         localStorage.setItem('sprb-work', JSON.stringify(sprbWork));
 
-        const sprbEducation = JSON.parse(response.data['sprb-education']);
+        const sprbEducation = JSON.parse(data['sprb-education']);
         localStorage.setItem('sprb-education', JSON.stringify(sprbEducation));
 
-        const sprbActivities = JSON.parse(response.data['sprb-activities']);
+        const sprbActivities = JSON.parse(data['sprb-activities']);
         localStorage.setItem('sprb-activities', JSON.stringify(sprbActivities));
 
-        const sprbReference = JSON.parse(response.data['sprb-reference']);
+        const sprbReference = JSON.parse(data['sprb-reference']);
         localStorage.setItem('sprb-reference', JSON.stringify(sprbReference));
 
-        const sprbAwards = JSON.parse(response.data['sprb-awards']);
+        const sprbAwards = JSON.parse(data['sprb-awards']);
         localStorage.setItem('sprb-awards', JSON.stringify(sprbAwards));
 
-        const sprbVolunteer = JSON.parse(response.data['sprb-volunteer']);
+        const sprbVolunteer = JSON.parse(data['sprb-volunteer']);
         localStorage.setItem('sprb-volunteer', JSON.stringify(sprbVolunteer));
 
-        localStorage.setItem('sprb-labels', JSON.stringify(response.data['sprb-labels']));
+        localStorage.setItem('sprb-labels', JSON.stringify(data['sprb-labels']));
 
         // const sprbIntro = JSON.parse(localStorage.getItem('sprb-intro')!);
 
         console.log(localStorage.getItem('sprb-intro'));
         console.log('#######################');
-        console.log(response);
+        console.log(data);
         const sprb = {
           basics: {
             name: sprbIntro.state.intro.name,
@@ -189,7 +188,7 @@ export const useIntro = create(
     (set) => ({
       intro: userData.basics,
 
-      getIntro: fetch()
+      getIntro: fetch3()
         .then((res: any) => set({ intro: res.basics }))
         .catch((error) => {
           console.log('ERROR:', error);
@@ -240,7 +239,7 @@ export const useSkills = create(
       practices: userData.skills.practices,
       tools: userData.skills.tools,
 
-      getSkills: fetch()
+      getSkills: fetch3()
         .then((res: any) =>
           set({
             languages: res.skills.languages,
@@ -304,7 +303,7 @@ export const useWork = create(
     (set) => ({
       companies: userData.work,
 
-      getWork: fetch()
+      getWork: fetch3()
         .then((res: any) => set({ companies: res.work }))
         .catch((error) => {
           console.log('ERROR:', error);
@@ -368,7 +367,7 @@ export const useEducation = create(
     (set) => ({
       education: userData.education,
 
-      geteducation: fetch()
+      geteducation: fetch3()
         .then((res: any) => set({ education: res.education }))
         .catch((error) => {
           console.log('ERROR:', error);
@@ -424,13 +423,13 @@ export const useActivities = create(
       involvements: userData.activities.involvements,
       achievements: userData.activities.achievements,
 
-      getinvolvements: fetch()
+      getinvolvements: fetch3()
         .then((res: any) => set({ involvements: res.activities.involvements }))
         .catch((error) => {
           console.log('ERROR:', error);
         }),
 
-      getachievements: fetch()
+      getachievements: fetch3()
         .then((res: any) => set({ involvements: res.activities.achievements }))
         .catch((error) => {
           console.log('ERROR:', error);
@@ -459,7 +458,7 @@ export const useVolunteer = create(
     (set) => ({
       volunteer: userData.volunteer,
 
-      getvolunteer: fetch()
+      getvolunteer: fetch3()
         .then((res: any) => set({ volunteer: res.volunteer }))
         .catch((error) => {
           console.log('ERROR:', error);
@@ -508,7 +507,7 @@ export const useAwards = create(
     (set) => ({
       awards: userData.awards,
 
-      getawards: fetch()
+      getawards: fetch3()
         .then((res: any) => set({ awards: res.awards }))
         .catch((error) => {
           console.log('ERROR:', error);
@@ -574,7 +573,7 @@ export const useReference = create(
     (set) => ({
       references: userData.reference,
 
-      getreferences: fetch()
+      getreferences: fetch3()
         .then((res: any) => set({ references: res.reference }))
         .catch((error) => {
           console.log('ERROR:', error);
