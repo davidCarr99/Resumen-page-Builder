@@ -26,8 +26,155 @@ const fetch = () => {
     axios
       .get('http://cms.test/showresume')
       .then((response) => {
-        localStorage.setItem('sprb-intro-name', response.data.name);
-        resolve(response);
+        if ('caches' in window) {
+          caches.keys().then((names) => {
+            // Delete all the cache files
+            names.forEach((name) => {
+              caches.delete(name);
+            });
+          });
+        }
+
+        const sprbIntro = JSON.parse(response.data['sprb-intro']);
+        localStorage.setItem('sprb-intro', JSON.stringify(sprbIntro));
+
+        const sprbSkills = JSON.parse(response.data['sprb-skills']);
+        localStorage.setItem('sprb-skills', JSON.stringify(sprbSkills));
+
+        const sprbWork = JSON.parse(response.data['sprb-work']);
+        localStorage.setItem('sprb-work', JSON.stringify(sprbWork));
+
+        const sprbEducation = JSON.parse(response.data['sprb-education']);
+        localStorage.setItem('sprb-education', JSON.stringify(sprbEducation));
+
+        const sprbActivities = JSON.parse(response.data['sprb-activities']);
+        localStorage.setItem('sprb-activities', JSON.stringify(sprbActivities));
+
+        const sprbReference = JSON.parse(response.data['sprb-reference']);
+        localStorage.setItem('sprb-reference', JSON.stringify(sprbReference));
+
+        const sprbAwards = JSON.parse(response.data['sprb-awards']);
+        localStorage.setItem('sprb-awards', JSON.stringify(sprbAwards));
+
+        const sprbVolunteer = JSON.parse(response.data['sprb-volunteer']);
+        localStorage.setItem('sprb-volunteer', JSON.stringify(sprbVolunteer));
+
+        localStorage.setItem('sprb-labels', JSON.stringify(response.data['sprb-labels']));
+
+        // const sprbIntro = JSON.parse(localStorage.getItem('sprb-intro')!);
+
+        console.log(localStorage.getItem('sprb-intro'));
+        // console.log(response)
+        const sprb = {
+          basics: {
+            name: sprbIntro.state.intro.name,
+            label: sprbIntro.state.intro.label,
+            image: sprbIntro.state.intro.image,
+            email: sprbIntro.state.intro.email,
+            phone: sprbIntro.state.intro.phone,
+            url: sprbIntro.state.intro.url,
+            summary: sprbIntro.state.intro.summary,
+            location: {
+              address: sprbIntro.state.intro.location.address,
+              postalCode: sprbIntro.state.intro.location.postalCode,
+              city: sprbIntro.state.intro.location.city,
+              countryCode: sprbIntro.state.intro.location.countryCode,
+              region: sprbIntro.state.intro.location.region,
+            },
+            totalExp: sprbIntro.state.intro.totalExp,
+            objective: sprbIntro.state.intro.objective,
+            profiles: [
+              {
+                network: sprbIntro.state.intro.profiles[0].network,
+                username: sprbIntro.state.intro.profiles[0].username,
+                url: sprbIntro.state.intro.profiles[0].url,
+              },
+            ],
+          },
+          skills: {
+            languages: [
+              {
+                name: sprbSkills.state.languages[0].name,
+                level: sprbSkills.state.languages[0].level,
+              },
+            ],
+            frameworks: [
+              {
+                name: sprbSkills.state.frameworks[0].name,
+                level: sprbSkills.state.frameworks[0].level,
+              },
+            ],
+            technologies: [
+              {
+                name: sprbSkills.state.technologies[0].name,
+                level: sprbSkills.state.technologies[0].level,
+              },
+            ],
+            libraries: [
+              {
+                name: sprbSkills.state.libraries[0].name,
+                level: sprbSkills.state.libraries[0].level,
+              },
+            ],
+            databases: [
+              {
+                name: sprbSkills.state.databases[0].name,
+                level: sprbSkills.state.databases[0].level,
+              },
+            ],
+            practices: [
+              {
+                name: sprbSkills.state.practices[0].name,
+                level: sprbSkills.state.practices[0].level,
+              },
+            ],
+            tools: [
+              {
+                name: sprbSkills.state.tools[0].name,
+                level: sprbSkills.state.tools[0].level,
+              },
+            ],
+          },
+          work: [
+            {
+              name: sprbWork.state.companies[0].name,
+              position: sprbWork.state.companies[0].position,
+              url: sprbWork.state.companies[0].url,
+              startDate: sprbWork.state.companies[0].startDate,
+              endDate: sprbWork.state.companies[0].endDate,
+              years: sprbWork.state.companies[0].years,
+              highlights: sprbWork.state.companies[0].highlights,
+              summary: sprbWork.state.companies[0].summary,
+            },
+          ],
+          education: [
+            {
+              institution: sprbEducation.state.education[0].institution,
+              url: sprbEducation.state.education[0].url,
+              studyType: sprbEducation.state.education[0].studyType,
+              area: sprbEducation.state.education[0].area,
+              startDate: sprbEducation.state.education[0].startDate,
+              endDate: sprbEducation.state.education[0].endDate,
+              score: sprbEducation.state.education[0].score,
+              courses: sprbEducation.state.education[0].courses,
+            },
+          ],
+          activities: {
+            involvements: sprbActivities.state.involvements,
+            achievements: sprbActivities.state.achievements,
+          },
+          reference: [
+            {
+              ref: sprbReference.state.references[0].ref,
+              name: sprbReference.state.references[0].name,
+              phone: sprbReference.state.references[0].phone,
+              info: sprbReference.state.references[0].info,
+            },
+          ],
+          volunteer: [],
+          awards: [],
+        };
+        resolve(sprb);
       })
       .catch((error) => {
         reject(error);
@@ -40,8 +187,8 @@ export const useIntro = create(
     (set) => ({
       intro: userData.basics,
 
-      intro2: fetch()
-        .then((res: any) => set({ intro: res.data }))
+      getIntro: fetch()
+        .then((res: any) => set({ intro: res.basics }))
         .catch((error) => {
           console.log('ERROR:', error);
         }),
@@ -91,6 +238,22 @@ export const useSkills = create(
       practices: userData.skills.practices,
       tools: userData.skills.tools,
 
+      getSkills: fetch()
+        .then((res: any) =>
+          set({
+            languages: res.skills.languages,
+            frameworks: res.skills.frameworks,
+            libraries: res.skills.libraries,
+            databases: res.skills.databases,
+            technologies: res.skills.technologies,
+            practices: res.skills.practices,
+            tools: res.skills.tools,
+          })
+        )
+        .catch((error) => {
+          console.log('ERROR:', error);
+        }),
+
       reset: (data = userData.skills) => {
         set({
           languages: data.languages,
@@ -138,6 +301,12 @@ export const useWork = create(
   persist(
     (set) => ({
       companies: userData.work,
+
+      getWork: fetch()
+        .then((res: any) => set({ companies: res.work }))
+        .catch((error) => {
+          console.log('ERROR:', error);
+        }),
 
       reset: (data = userData.work) => {
         set({ companies: data });
@@ -197,6 +366,12 @@ export const useEducation = create(
     (set) => ({
       education: userData.education,
 
+      geteducation: fetch()
+        .then((res: any) => set({ education: res.education }))
+        .catch((error) => {
+          console.log('ERROR:', error);
+        }),
+
       reset: (data = userData.education) => {
         set({ education: data });
       },
@@ -247,6 +422,18 @@ export const useActivities = create(
       involvements: userData.activities.involvements,
       achievements: userData.activities.achievements,
 
+      getinvolvements: fetch()
+        .then((res: any) => set({ involvements: res.activities.involvements }))
+        .catch((error) => {
+          console.log('ERROR:', error);
+        }),
+
+      getachievements: fetch()
+        .then((res: any) => set({ involvements: res.activities.achievements }))
+        .catch((error) => {
+          console.log('ERROR:', error);
+        }),
+
       reset: (data = userData.activities) => {
         set({
           involvements: data.involvements,
@@ -269,6 +456,12 @@ export const useVolunteer = create(
   persist(
     (set) => ({
       volunteer: userData.volunteer,
+
+      getvolunteer: fetch()
+        .then((res: any) => set({ volunteer: res.volunteer }))
+        .catch((error) => {
+          console.log('ERROR:', error);
+        }),
 
       add: () =>
         set(
@@ -312,6 +505,12 @@ export const useAwards = create(
   persist(
     (set) => ({
       awards: userData.awards,
+
+      getawards: fetch()
+        .then((res: any) => set({ awards: res.awards }))
+        .catch((error) => {
+          console.log('ERROR:', error);
+        }),
 
       add: () =>
         set(
@@ -372,6 +571,12 @@ export const useReference = create(
   persist(
     (set) => ({
       references: userData.reference,
+
+      getreferences: fetch()
+        .then((res: any) => set({ references: res.reference }))
+        .catch((error) => {
+          console.log('ERROR:', error);
+        }),
 
       reset: (data = userData.reference) => {
         set({ references: data });

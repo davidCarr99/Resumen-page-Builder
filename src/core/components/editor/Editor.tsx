@@ -50,7 +50,6 @@ export const IntroEditor = () => {
   const introState = useIntro((state: any) => state.intro);
   const update = useIntro((state: any) => state.update);
 
-  console.log(introState);
   return (
     <Container>
       <Heading>Acerca de Mi</Heading>
@@ -117,6 +116,10 @@ export const ExerienceEditor = () => {
     (state: any) => [state.add, state.update, state.purge, state.changeOrder],
     shallow
   );
+
+  console.log('===========================');
+  console.log(companies);
+  console.log('===========================');
 
   return (
     <Container>

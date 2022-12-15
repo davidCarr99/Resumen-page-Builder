@@ -46,19 +46,20 @@ export function SaveSettings() {
   const awards = useAwards((state: any) => state.awards);
 
   function save() {
-    const jsonInfo = {
-      state: {
-        intro: {
-          name: basics.name,
-          label: basics.label,
-        },
-      },
+    const data = {
+      sprb_intro: localStorage.getItem('sprb-intro'),
+      sprb_skills: localStorage.getItem('sprb-skills'),
+      sprb_work: localStorage.getItem('sprb-work'),
+      sprb_education: localStorage.getItem('sprb-education'),
+      sprb_activities: localStorage.getItem('sprb-activities'),
+      sprb_reference: localStorage.getItem('sprb-reference'),
+      sprb_awards: localStorage.getItem('sprb-awards'),
+      sprb_volunteer: localStorage.getItem('sprb-volunteer'),
+      sprb_labels: localStorage.getItem('sprb-labels'),
     };
-    axios
-      .post('http://cms.test/saveresume', { json: 'json', value: jsonInfo })
-      .then(function (res) {
-        console.log(res);
-      });
+    axios.post('http://cms.test/saveresume', data).then(function (res) {
+      console.log(res);
+    });
     // const fileName = basics.name + '_' + new Date().toLocaleString();
     // const exportType = exportFromJSON.types.json;
 
